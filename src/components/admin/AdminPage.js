@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import UserResponses from "./UserResponses"; // Import your component if it's separate
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersAsync } from "../authSlice";
+import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
   const dispatch = useDispatch();
   const [selectedResponse, setSelectedResponse] = useState([]); // Track selected responses
+  const navigate=  useNavigate();
   useEffect(() => {
     dispatch(getAllUsersAsync());
   }, [dispatch]);
-  const handleGetResponse = (response) => {
-    setSelectedResponse(response); // Update state with the clicked user's responses
+  const handleGetResponse = (responses) => {
+    navigate('/admin-user-responses', { state: { responsesArray: responses } });
   };
-  console.log(selectedResponse);
+
   
   const users = useSelector((state) => state.auth.users);
 
@@ -53,7 +55,7 @@ const AdminPage = () => {
       </div>
 
       {/* Conditionally render UserResponses component when a response is selected */}
-      {selectedResponse && <UserResponses responses={selectedResponse} />}
+      {/* {selectedResponse && <UserResponses responses={selectedResponse} />} */}
     </>
   );
 };

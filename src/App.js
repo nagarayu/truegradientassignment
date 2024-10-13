@@ -13,6 +13,7 @@ import Logout from "./components/Logout";
 import SavedResponses from "./components/SavedResponses";
 import ProtectedAdmin from "./components/admin/ProtectedAdmin";
 import AdminPage from "./components/admin/AdminPage";
+import UserResponses from "./components/admin/UserResponses";
 
 const router = createBrowserRouter([
   {
@@ -26,26 +27,38 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginPage />,
-  }, 
+  },
   {
     path: "/signup",
     element: <SignUpPage />,
   },
   {
-    path: '/logout',
+    path: "/logout",
     element: <Logout></Logout>,
   },
   {
-    path:'/admin',
-    element:(
+    path: "/admin",
+    element: (
       <ProtectedAdmin>
-        <AdminPage/>
+        <AdminPage />
       </ProtectedAdmin>
-    )
+    ),
   },
   {
-    path:'/saved-responses',
-    element:<Protected><SavedResponses></SavedResponses></Protected>
+    path: "/saved-responses",
+    element: (
+      <Protected>
+        <SavedResponses></SavedResponses>
+      </Protected>
+    ),
+  },
+  {
+    path: "admin-user-responses",
+    element: (
+      <ProtectedAdmin>
+        <UserResponses></UserResponses>
+      </ProtectedAdmin>
+    ),
   },
   {
     path: "*",
