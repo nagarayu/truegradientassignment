@@ -11,6 +11,8 @@ import { selectLoggedInUser } from "./components/authSlice";
 import SignUpPage from "./components/SignUpPage";
 import Logout from "./components/Logout";
 import SavedResponses from "./components/SavedResponses";
+import ProtectedAdmin from "./components/admin/ProtectedAdmin";
+import AdminPage from "./components/admin/AdminPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
   {
     path: '/logout',
     element: <Logout></Logout>,
+  },
+  {
+    path:'/admin',
+    element:(
+      <ProtectedAdmin>
+        <AdminPage/>
+      </ProtectedAdmin>
+    )
   },
   {
     path:'/saved-responses',

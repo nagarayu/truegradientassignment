@@ -22,7 +22,8 @@ export default function SignUpPage() {
   }, [dispatch]);
   return (
     <>
-      {user && <Navigate replace={true} to="/"></Navigate>}
+      {user && user?.data.role=="admin" && <Navigate to="/admin" replace={true}></Navigate>}
+      {user && user?.data.role=="student" && <Navigate to="/" replace={true}></Navigate>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -44,6 +45,8 @@ export default function SignUpPage() {
                   name: data.name,
                   email: data.email,
                   password: data.password,
+                  role:data.role
+                 
                 })
               );
               // reset();
@@ -135,6 +138,29 @@ export default function SignUpPage() {
                 {errors.confirmPassword && (
                   <p className="text-red-500">
                     {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="role"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Role
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="role"
+                  {...register("role", {
+                    required: "Role is required",
+                  })}
+                
+                  className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+                {errors.role && (
+                  <p className="text-red-500">
+                    {errors.role.message}
                   </p>
                 )}
               </div>

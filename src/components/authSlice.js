@@ -5,14 +5,17 @@ import {
   checkAuth,
   getAllResponses,
   signOut,
-  saveResponse
+  saveResponse,
+  getAllUsers
+
 } from "./authAPI";
 
 const initialState = {
   loggedInUser: null,
   status: "idle",
   error: null,
-  responses:[]
+  responses:[],
+  users:[]
 };
 
 export const createUserAsync = createAsyncThunk(
@@ -75,6 +78,17 @@ export const saveResponseAsync = createAsyncThunk(
   }
 );
 
+export const getAllUsersAsync = createAsyncThunk(
+  'user/getUsers',
+  async () => {
+    
+    const response = await getAllUsers();
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  }
+);
+
+
 
 export const authSlice = createSlice({
   name: "user",
@@ -110,7 +124,7 @@ export const authSlice = createSlice({
       .addCase(checkAuthAsync.fulfilled, (state, action) => {
         state.status = "idle";
         state.loggedInUser = action.payload;
-        state.responses = state.loggedInUser.data.responses;
+        // state.responses = state.loggedInUser.data?.responses;
       })
       .addCase(checkAuthAsync.rejected, (state, action) => {
         state.status = "idle";
@@ -132,6 +146,15 @@ export const authSlice = createSlice({
         state.status = "idle";
         state.error = action.payload;
       })
+      .addCase(getAllUsersAsync.fulfilled, (state, action) => {
+        state.status = "idle";  
+        state.users = action.payload.data;
+        
+      })
+      .addCase(getAllUsersAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.error = action.payload;
+      })
       ;
   },
 });
@@ -140,6 +163,7 @@ export const selectLoggedInUser = (state) => state.auth.loggedInUser;
 export const selectError = (state) => state.auth.error;
 export const selectUserChecked = (state) => state.auth.userChecked;
 export const selectLoggedInUserSavedResponses = (state)=>state.auth.responses;
+
 
 // export const { } = authSlice.actions;
 

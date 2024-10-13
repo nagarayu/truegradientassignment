@@ -1,7 +1,7 @@
 export function createUser(userData) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8080/auth/signup", {
+      const response = await fetch("https://truegradientbackend.onrender.com/auth/signup", {
         method: "POST",
         body: JSON.stringify(userData),
         headers: { "Content-Type": "application/json" },
@@ -21,7 +21,7 @@ export function loginUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
       
-      const response = await fetch("http://localhost:8080/auth/signin", {
+      const response = await fetch("https://truegradientbackend.onrender.com/auth/signin", {
         method: "POST",
         body: JSON.stringify(loginInfo),
         headers: { "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ export function loginUser(loginInfo) {
 export function checkAuth() {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8080/check");
+      const response = await fetch("https://truegradientbackend.onrender.com/check");
       const data = await response.json();
       if (response.ok) {
         resolve({ data: data });
@@ -59,7 +59,7 @@ export function checkAuth() {
 export function getAllResponses(userId){
   return new Promise(async(resolve,reject)=>{
     try{
-      const response = await fetch("http://localhost:8080/responses/"+userId);
+      const response = await fetch("https://truegradientbackend.onrender.com/responses/"+userId);
       const data = await response.json();
       if(response.ok){
         resolve({data})
@@ -94,7 +94,7 @@ export function signOut(userId) {
 export function saveResponse(userId,newResponse) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("http://localhost:8080/saveResponse/"+userId,{
+      const response = await fetch("https://truegradientbackend.onrender.com/saveResponse/"+userId,{
         method:"POST",
         body:JSON.stringify(newResponse),
         headers:{
@@ -103,6 +103,22 @@ export function saveResponse(userId,newResponse) {
 
       })
      
+      const data = await response.json();
+      resolve({data})
+    } catch (error) {
+      console.log(error)
+      reject( error );
+    }
+  });
+}
+
+
+
+export function getAllUsers() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch("https://truegradientbackend.onrender.com/users")
+      
       const data = await response.json();
       resolve({data})
     } catch (error) {

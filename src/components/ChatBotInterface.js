@@ -18,7 +18,7 @@ function ChatBotInterface() {
 
     if (inputMessage !== "") {
       // setInputMessage("");
-      let response = await fetch("http://localhost:8080/response");
+      let response = await fetch("https://truegradientbackend.onrender.com/response");
       response = await response.json();   
       
       const data = response.data;
