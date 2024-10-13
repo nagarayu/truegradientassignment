@@ -146,7 +146,7 @@ export default function SignUpPage() {
                   htmlFor="role"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Role
+                  Role: student/admin
                 </label>
               </div>
               <div className="mt-2">
